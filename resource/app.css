@@ -57,9 +57,9 @@
     text-align: center;
 }
 
-div.button{
-    margin-left: auto;
-    margin-right: auto;
+#button-div{
+    display: flex;
+    justify-content: center;
 }
 
 .extra{
