@@ -1,11 +1,11 @@
-<?php
-require_once "../components/head.php";
-require_once "../components/navBar.php";
+<?php    //<-- Assessment 1: 4 - Coding conventions (must start with <?php or <?=)
+require_once "../../components/head.php";  //<---- Assessment 1: 3 - require_once
+require_once "../../components/navBar.php";
 ?>
 <!DOCTYPE html>
 <html>
 <?php
- $head = new Head('गेमिंग समुदाय');
+ $head = new Head('Gaming Community');
  $head->formHead();
 ?>
 
@@ -15,9 +15,9 @@ require_once "../components/navBar.php";
     ?>        <!-- <--- Assessment 1: 1 php tag, escaping html, instruction separation -->
     <div class='container'>
     <?php    
-    $ini_array = parse_ini_file( '../ini/navbar.ini',true);  //<---- Assessment 1: 18 (il8n)
-    $locale="hi";
-    $navBar = new NavBar("home",$ini_array,"hi");
+    $ini_array = parse_ini_file( '../../ini/navbar.ini',true);  //<---- Assessment 1: 18 (il8n)
+    $locale="en";
+    $navBar = new NavBar("home",$ini_array,"en");
     $navBar->formNavBar();
        echo "<div class='body-content'>";
            echo "<h2 class='welcome-message'>".$ini_array[$locale]["Welcome-Message"]."</h2>";
