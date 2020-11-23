@@ -1,6 +1,6 @@
 <?php
 
-class NavBar {    //<--- Assessment 1: 10 - Classes
+class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class name must start with a capital letter)
     private $home="";     //<--- Assesment 1: 10 - Class properties
     private $newPost="";
     private $viewPosts="";
@@ -8,7 +8,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes
     private $register="";
     private $ini_array = array();    //<---- Assessment 1: 5 - Array
     private $locale = "en";
-    function __construct(     //<---- Assessment 1: 10 - Class contructor
+    function __construct(     //<---- Assessment 1: 10 - Class contructor, 8 - Arguments
         $activeItem,
         $ini_array,
         $locale
@@ -34,13 +34,14 @@ class NavBar {    //<--- Assessment 1: 10 - Classes
         $this->locale = $locale;
     }
 
-    public function formNavBar(){
-        $lang = 'english';
+    public function formNavBar(){  //<-- Assessment 1: 8 - user-define function
+        $lang = 'en';  //<--- Assessment 1: 2 - Basic variable type, scope (only accessible in this method)
         if($this->locale === 'hi'){
-           $lang = 'hindi';
+           $lang = 'hi';
         }
         echo "<div class='ui inverted menu'>
-                <a class='".$this->home." item'>".
+                <a class='".$this->home." item'
+                   href='../../pages/landingPage/".$lang.".php'>".
                    $this->ini_array[$this->locale]["Home"].
                "</a>
                 <a class='".$this->viewPosts." item' 
@@ -48,7 +49,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes
                    $this->ini_array[$this->locale]["View-Posts"].
                "</a>
                 <a class='".$this->newPost." item' 
-                   href='./postForm.html'>".
+                   href='../../pages/newPost/".$lang.".php'>".
                    $this->ini_array[$this->locale]["New-Post"].
                "</a>
                 <div class='right menu'>
@@ -56,7 +57,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes
                      $this->ini_array[$this->locale]["Login"].
                   "</a>
                    <a class='".$this->register." item'
-                     href='../pages/registrationPage-".$lang.".php'>".
+                     href='../../pages/registrationPage/".$lang.".php'>".
                      $this->ini_array[$this->locale]["Register"].
                   "</a>
                 </div>

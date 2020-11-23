@@ -3,7 +3,7 @@
      private $ini_array = array();
      private $locale = "en";
      function __construct(
-         $ini_array,
+         $ini_array,  //<--- Assessment 1: 2 - Global scope variable
          $locale
      ){
        $this->ini_array = $ini_array;
@@ -35,7 +35,9 @@
                 <label>".$this->ini_array[$this->locale]['terms']."</label>
              </div>
           </div>
-          <button class='ui button' type='submit'>".$this->ini_array[$this->locale]['submit']."</button>
+          <div id='button-div'>
+            <button class='ui primary button' type='submit'>".$this->ini_array[$this->locale]['submit']."</button>
+          </div>
         </form>
       </div>";
      }
