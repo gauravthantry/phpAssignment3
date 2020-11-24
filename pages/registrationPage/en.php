@@ -21,6 +21,7 @@
       <div class='container'>
         <?php    
         $navBar->formNavBar();
+        $registration->setScriptFiles();
         $registration->formRegistration();
         ?>
       </div>
