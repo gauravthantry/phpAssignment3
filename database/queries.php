@@ -1,7 +1,7 @@
 <?php
 class DBQueries{
 
-  public static function AddUser($email,$password,$fName,$lName,$phoneNumber,$DOB,$gender)
+  public static function RegisterUser($email,$password,$fName,$lName,$phoneNumber,$DOB,$gender)
   {
     require '..\database\connectDB.php';
     $sql = "insert into User (email,password,F_name,L_name,phoneNumber,DOB,gender) values('$email','$password', '$fName', '$lName', $phoneNumber, '$DOB', '$gender');";

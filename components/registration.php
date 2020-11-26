@@ -37,13 +37,33 @@
              <label>".$this->ini_array[$this->locale]['last-name'].":</label>
              <input type='text' name='last-name' placeholder='".$this->ini_array[$this->locale]['last-name']."'>
           </div>
-          <div class='field'>
-             <label>".$this->ini_array[$this->locale]['age'].":</label>
-             <input type='number' name='email-address' placeholder='".$this->ini_array[$this->locale]['age-placeholder']."'>
-          </div>
+          <div class='ui grid'>
+           <div class='five wide column '>
+            <div class='field'>
+              <label>".$this->ini_array[$this->locale]['age'].":</label>
+              <input type='number' name='email-address' placeholder='".$this->ini_array[$this->locale]['age-placeholder']."'>
+            </div>
+           </div>
+          <div class='eleven wide column'>
           <div class='field'>
              <label>".$this->ini_array[$this->locale]['email-address'].":</label>
              <input type='email' name='email-address' placeholder='".$this->ini_array[$this->locale]['email-address-placeholder']."'>
+          </div>
+          </div>
+          </div>
+          <div class='ui grid'>
+           <div class='eight wide column '>
+            <div class='field'>
+               <label>".$this->ini_array[$this->locale]['password'].":</label>
+               <input type='password' id='new-password' name='password' placeholder='".$this->ini_array[$this->locale]['password']."'>
+            </div>
+           </div>
+           <div class='eight wide column '>
+            <div class='field'>
+               <label>".$this->ini_array[$this->locale]['confirm-password'].":</label>
+               <input type='password' id='confirm-password' name='confirm-password' placeholder='".$this->ini_array[$this->locale]['confirm-password']."'>
+            </div>
+           </div>
           </div>
           <div class='field'>
              <div class='ui checkbox'>

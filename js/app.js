@@ -13,3 +13,20 @@ function myImgRemoveFunctionOne() {
       preview.style.display = "block";
     } 
   }
+
+  function check_resetpass() {
+    setInterval(() => {
+        if (document.getElementById('newpassword').value ==
+            document.getElementById('confirm-password').value) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerHTML = 'matching';
+            document.getElementById('submit').disabled = false;
+            document.getElementById('message').style.display = 'block';
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'not matching';
+            document.getElementById('submit').disabled = true;
+            document.getElementById('message_reset').style.display = 'block';
+        }
+    },200);
+  }
