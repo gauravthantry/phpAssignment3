@@ -1,4 +1,9 @@
 <?php
+  include('../database/mySQLDB.php');
+  
+?>
+
+<?php
   $profile_pic = $_POST['img-src'];
   $first_name = $_POST['first-name'];
   $last_name = $_POST['last-name'];
