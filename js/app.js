@@ -8,15 +8,18 @@ function myImgRemoveFunctionOne() {
     if(event.target.files.length > 0){
       let src = URL.createObjectURL(event.target.files[0]);
       console.log(`[URL]:${src}`)
+      document.getElementById("img-src").value = src;
+      console.log(`[profile pic src]: ${document.getElementById("img-src").value}`);
       let preview = document.getElementById("pic-preview");
       preview.src = src;
       preview.style.display = "block";
+      
     } 
   }
 
-  function check_resetpass() {
+  function check_pass() {
     setInterval(() => {
-        if (document.getElementById('newpassword').value ==
+        if (document.getElementById('password').value ==
             document.getElementById('confirm-password').value) {
             document.getElementById('message').style.color = 'green';
             document.getElementById('message').innerHTML = 'matching';
@@ -26,7 +29,7 @@ function myImgRemoveFunctionOne() {
             document.getElementById('message').style.color = 'red';
             document.getElementById('message').innerHTML = 'not matching';
             document.getElementById('submit').disabled = true;
-            document.getElementById('message_reset').style.display = 'block';
+            document.getElementById('message').style.display = 'block';
         }
     },200);
   }

@@ -1,10 +1,12 @@
 <?php
+  require '..\database\connectDB.php';
+?>
+<?php
 class DBQueries{
 
-  public static function RegisterUser($email,$password,$fName,$lName,$phoneNumber,$DOB,$gender)
+  public static function registerUser($email,$password,$fName,$lName,$age, $gender, $profile_pic)
   {
-    require '..\database\connectDB.php';
-    $sql = "insert into User (email,password,F_name,L_name,phoneNumber,DOB,gender) values('$email','$password', '$fName', '$lName', $phoneNumber, '$DOB', '$gender');";
+    $sql = "insert into User (email,password,first_name,last_name,age) values('$email','$password', '$fName', '$lName', $age, '$gender', $profile_pic);";
     return $db->query($sql);
   }
   public static function GetPasswordHash($email)

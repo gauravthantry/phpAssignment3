@@ -61,6 +61,11 @@
 #button-div{
     display: flex;
     justify-content: center;
+    
+}
+
+#submit{
+    margin-top: 2%;
 }
 
 .extra{
