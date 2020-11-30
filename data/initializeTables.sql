@@ -14,6 +14,7 @@ create table if not exists user_details(
 create table if not exists Post(
 	post_id INT NOT NULL AUTO_INCREMENT,
   userID INT,
+  lang VARCHAR (2),
   post_title VARCHAR (200),
   post_content VARCHAR (3000),
   post_create_date DATETIME NOT NULL DEFAULT(NOW()),

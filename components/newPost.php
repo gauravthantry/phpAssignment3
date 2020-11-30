@@ -2,6 +2,7 @@
  include  '../../database/dbConnect.php';
  require_once "../../database/queries.php";
  include_once "../../database/dbConnect.php";
+ $globalLocale = 'en';
 ?>
 <?php
  class NewPost {
@@ -13,6 +14,7 @@
      ){
        $this->ini_array = $ini_array;
        $this->locale = $locale;
+       $globalLocale = $locale;
      }
 
      public function formNewPost(){
@@ -46,6 +48,6 @@
 if(isset($_POST['new-post'])){
   $post_title = $_POST['post-title'];
   $post_content = $_POST['post-content'];
-  Queries::createPost($_SESSION['userID'],$post_title,$post_content);
+  $createResult = Queries::createPost($_SESSION['userID'],$globalLocale,$post_title,$post_content);
 }
 ?>

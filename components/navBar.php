@@ -59,7 +59,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
                    $this->ini_array[$this->locale]["Home"].
                "</a>
                 <a class='".$this->viewPosts." item' 
-                   href='./viewPosts.html'>".
+                href='../../pages/viewPosts/".$lang.".php'>".
                    $this->ini_array[$this->locale]["View-Posts"].
                "</a>
                 <a class='".$this->newPost." item' 

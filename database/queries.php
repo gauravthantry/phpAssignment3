@@ -74,10 +74,17 @@ class Queries{
   }
 
 
-  public static function GetAllPosts()
+  public static function getAllPosts()
   {
     require '..\database\connectDB.php';
-    $sql = "select * from Post order by dateOfPost desc;";
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $db->connectToServer();
+    $db->selectDatabase();
+    $sql = "select * from post order by post_create_date desc;";
     return $db->query($sql);
   }
 
@@ -90,7 +97,7 @@ class Queries{
 
 
 
-  public static function createPost($userID, $post_title, $post_content)
+  public static function createPost($userID, $locale, $post_title, $post_content)
   {
     $host = 'localhost';
     $dbUser ='root';
@@ -100,7 +107,7 @@ class Queries{
     $db->connectToServer();
     $db->selectDatabase();
     $date = date("Y/m/d");
-    $sql = "insert into post (userID, post_title, post_content) values ('$userID','$post_title', '$post_content') ;";
+    $sql = "insert into post (userID, lang, post_title, post_content) values ('$userID','$locale','$post_title', '$post_content') ;";
     return $db->query($sql);
   }
 
