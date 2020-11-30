@@ -1,5 +1,6 @@
 
 <?php
+session_destroy();
  include  '../../database/dbConnect.php';
  require_once "../../database/queries.php";
  include_once "../../database/dbConnect.php";
@@ -57,6 +58,7 @@
               echo 'inside set';
               $_SESSION['loggedIn'] = 'true';
               $_SESSION['userID'] = $userID;
+              $_SESSION['locale']= $this->locale;
              } 
              header('Location: ../newPost/'.$this->locale.'.php');
            }

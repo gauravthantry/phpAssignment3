@@ -16,7 +16,6 @@
      }
 
      public function formNewPost(){
-         session_start();
          if(isset($_SESSION['loggedIn'])){
              echo  "<div class='formSection'>
         <h3 class='create-post-heading'>".$this->ini_array[$this->locale]['form-title']."</h3>
@@ -44,7 +43,6 @@
 ?>
 
 <?php 
-session_start();
 if(isset($_POST['new-post'])){
   $post_title = $_POST['post-title'];
   $post_content = $_POST['post-content'];

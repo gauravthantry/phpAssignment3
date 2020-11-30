@@ -1,5 +1,12 @@
 <?php
-
+  if((isset($_GET['logout']))&&($_GET['logout']==1)){
+      session_start();
+      header('Location: ../loginPage/'.$_SESSION['locale'].'.php');
+      $_SESSION['loggedIn']=false;
+  }
+?>
+<?php
+session_start();
 class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class name must start with a capital letter)
     private $home="";     //<--- Assesment 1: 10 - Class properties
     private $newPost="";
@@ -8,6 +15,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
     private $register="";
     private $ini_array = array();    //<---- Assessment 1: 5 - Array
     private $locale = "en";
+    private $session;
     function __construct(     //<---- Assessment 1: 10 - Class contructor, 8 - Arguments
         $activeItem,
         $ini_array,
@@ -32,6 +40,12 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
         }
         $this->ini_array = $ini_array;
         $this->locale = $locale;
+        if(isset($_SESSION['loggedIn'])&&($_SESSION['loggedIn'])){
+            $this->session = "Logout";
+        }
+        else{
+            $this->session = "Login";
+        }
     }
 
     public function formNavBar(){  //<-- Assessment 1: 8 - user-define function
@@ -52,18 +66,32 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
                    href='../../pages/newPost/".$lang.".php'>".
                    $this->ini_array[$this->locale]["New-Post"].
                "</a>
-                <div class='right menu'>
-                   <a class='".$this->login." item'
-                     href='../../pages/loginPage/".$lang.".php'>".
-                     $this->ini_array[$this->locale]["Login"].
-                  "</a>
-                   <a class='".$this->register." item'
-                     href='../../pages/registrationPage/".$lang.".php'>".
-                     $this->ini_array[$this->locale]["Register"].
-                  "</a>
-                </div>
-               </div>";
-    
+                <div class='right menu'>";
+
+
+                if($this->session==='Login')
+                {
+                    echo "<a class='".$this->login." item'
+                    href='../../pages/loginPage/".$lang.".php'>".
+                    $this->ini_array[$this->locale][$this->session].
+                 "</a>";
+                }
+                else {
+                    echo "<a class='".$this->login." item'
+                    href='?logout=1'>".
+                    $this->ini_array[$this->locale][$this->session].
+                 "</a>";
+                }
+
+
+                  if(!(isset($_SESSION['loggedIn'])&&($_SESSION['loggedIn']))){
+                   echo "<a class='".$this->register." item' 
+                   href='../../pages/registrationPage/".$lang.".php'>".
+                   $this->ini_array[$this->locale]["Register"].
+                "</a>";
+                  }
+                echo "</div>
+                </div>";
     }
 }
 ?>
