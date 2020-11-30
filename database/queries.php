@@ -53,8 +53,13 @@ class Queries{
           while($row = $result->fetch_assoc())
           {
           $hashed_password = $row['current_password'];
-          $compare = password_verify ($password , $hashed_password);
-          return $compare;
+          if(password_verify ($password , $hashed_password)){
+            return $userID;
+          }
+          else {
+            return 0;
+          }
+          
           }
       }
      }
@@ -85,10 +90,17 @@ class Queries{
 
 
 
-  public static function SubmitPost($title, $body, $authorID, $date)
+  public static function createPost($userID, $post_title, $post_content)
   {
-    require '..\database\connectDB.php';
-    $sql = "insert into Post (title, body, authorID, dateOfPost) values ('$title', '$body', '$authorID', '$date') ;";
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $db->connectToServer();
+    $db->selectDatabase();
+    $date = date("Y/m/d");
+    $sql = "insert into post (userID, post_title, post_content) values ('$userID','$post_title', '$post_content') ;";
     return $db->query($sql);
   }
 

@@ -16,7 +16,7 @@ create table if not exists Post(
   userID INT,
   post_title VARCHAR (200),
   post_content VARCHAR (3000),
-  post_create_date TIMESTAMP NOT NULL,
+  post_create_date DATETIME NOT NULL DEFAULT(NOW()),
   PRIMARY KEY (post_id),
   FOREIGN KEY (userID) REFERENCES user_details(userID)
 

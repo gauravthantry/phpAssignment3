@@ -43,18 +43,20 @@
         if(isset($_POST['login'])){
           $email = $_POST['email-address'];
           $password = $_POST['password'];
-          $authenticationResult =  Queries::authenticateUser($email,$password);
-          echo $authenticationResult;
-          if($authenticationResult!= 1){
+          $userID =  Queries::authenticateUser($email,$password);
+          if($userID=== 0){
            echo '<script type="text/JavaScript">  
              alert(\'Incorrect credentials provided. Please try again\');
            </script>';
            }
            else{
-               session_start();
+             echo 'inside else';
+             session_start();
              if (!isset($_SESSION['loggedIn']))
              {
+              echo 'inside set';
               $_SESSION['loggedIn'] = 'true';
+              $_SESSION['userID'] = $userID;
              } 
              header('Location: ../newPost/'.$this->locale.'.php');
            }
