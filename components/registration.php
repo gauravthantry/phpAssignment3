@@ -34,7 +34,7 @@
      }
      public function formRegistration(){
         echo  "<div class='body-content'>
-        <form class='ui form'  method='POST' enctype='multipart/form-data'>
+        <form class='ui form'   method='POST' enctype='multipart/form-data'>
               <div class='ui grid'>
                 <div class='three wide column preview-holder'>
                   <img class='sizedimg' id='pic-preview' style='width: 100%;' src=".$this->pic_src.">

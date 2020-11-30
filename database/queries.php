@@ -28,21 +28,37 @@ class Queries{
        $db->query($sql);
      }
     }
-    // if($result->num_rows > 0)
-    // {
-    //   while ($row = $result->fetch_assoc()) {
-    //   $userID = $row['userID'];
-    //   echo 'User ID: '.$userID;
-    // // $createUserCredential = "insert into user_credentials (userID,current_password) values ('$userID','$password');";
-    // }
-    // }
-   
   }
-  public static function GetPasswordHash($email)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select * from User where email = '$email';";
-    return $db->query($sql);
+  
+  public static function authenticateUser($email,$password){
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new MYSQL($host, $dbUser, $dbPass, $dbName);
+    $sql = 'use gamingforum';
+    $db->query($sql);
+    
+    $sql = "select userID from user_details where email='".$email."';";
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $result = $db->query($sql);
+    if($result->num_rows > 0){
+      while($row = $result->fetch_assoc())
+      {
+        $userID = $row['userID'];
+        $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+        $sql = "select current_password from user_credentials where userID ='".$userID."';";
+        $result = $db->query($sql);
+        if($result->num_rows > 0){
+          while($row = $result->fetch_assoc())
+          {
+          $hashed_password = $row['current_password'];
+          $compare = password_verify ($password , $hashed_password);
+          return $compare;
+          }
+      }
+     }
+    }
   }
 
   public static function GetUser($id)
@@ -52,20 +68,6 @@ class Queries{
     return $db->query($sql);
   }
 
-  public static function GetUserByEmail($email)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select * from User where email = '$email';";
-    return $db->query($sql);
-  }
-
-
-  public static function GetUsersName($email)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select F_name, L_name from User where email = '$email';";
-    return $db->query($sql);
-  }
 
   public static function GetAllPosts()
   {
@@ -81,19 +83,7 @@ class Queries{
     return $db->query($sql);
   }
 
-  public static function UpdateAccountDetails($email, $fName,$lName,$PNumber,$Email,$Dob,$Gender,$aboutMe)
-  {
-    require '..\database\connectDB.php';
-    $sql = "update User set F_name = '$fName', L_name = '$lName', phoneNumber = $PNumber, DOB = '$Dob', gender = '$Gender', aboutMe='$aboutMe' where email = '$email';";
-    return $db->query($sql);
-  }
 
-  public static function UpdatePassword($ID, $oldPassword, $newPassword)
-  {
-    require '..\database\connectDB.php';
-    $sql = "update User set password = '$newPassword' where email = '$ID';";
-    return $db->query($sql);
-  }
 
   public static function SubmitPost($title, $body, $authorID, $date)
   {
@@ -106,40 +96,6 @@ class Queries{
   {
     require '..\database\connectDB.php';
     $sql = "delete from Post where id='$postID' ;";
-    return $db->query($sql);
-  }
-
-  public static function LikePost($UserID, $PostID)
-  {
-    require '..\database\connectDB.php';
-    $sql = "call LikePost($UserID,$PostID);";
-    return $db->query($sql);
-  }
-  public static function UnLikePost($UserID, $PostID)
-  {
-    require '..\database\connectDB.php';
-    $sql = "call UnlikePost($UserID,$PostID);";
-    return $db->query($sql);
-  }
-
-  public static function findLike($UserID, $PostID)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select * from likes where liker ='$UserID' AND PostID='$PostID'";
-    return $db->query($sql);
-  }
-
-  public static function CountPostLikes($PostID)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select count(postId) from likes where postid='$PostID';";
-    return $db->query($sql);
-  }
-
-  public static function GetAllLikers($PostID)
-  {
-    require '..\database\connectDB.php';
-    $sql = "call GetLikersForPost($PostID)";
     return $db->query($sql);
   }
 

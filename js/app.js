@@ -33,3 +33,5 @@ function myImgRemoveFunctionOne() {
         }
     },200);
   }
+
+  

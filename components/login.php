@@ -4,13 +4,7 @@
  require_once "../../database/queries.php";
  include_once "../../database/dbConnect.php";
 ?>
-<?php
- if(isset($_POST['submit'])){
-   $email = $_POST['email-address'];
-   $password = $_POST['password'];
-   Queries::authenticateUser($email,$password);
- }
-?>
+
 <?php
  class Login {
      private $ini_array = array();
@@ -29,7 +23,7 @@
      }
      public function formLogin(){
         echo  "<div class='body-content'>
-        <form class='ui form'  method='POST' enctype='multipart/form-data'>
+        <form class='ui form' onsubmit='".$this->authenticate()."' method='POST' enctype='multipart/form-data'>
           <div class='field'>
              <label>".$this->ini_array[$this->locale]['email-address'].":</label>
              <input type='email' name='email-address' placeholder='".$this->ini_array[$this->locale]['email-address-placeholder']."'>
@@ -39,11 +33,40 @@
           <input type='password' id='password' name='password' placeholder='".$this->ini_array[$this->locale]['password']."' onchange='check_pass();'>
        </div>
           <div id='button-div'>
-            <button class='ui primary button' id='login' name='login' type='submit' disabled>".$this->ini_array[$this->locale]['login']."</button>
+            <button class='ui primary button' id='login' name='login' type='submit'>".$this->ini_array[$this->locale]['login']."</button>
           </div>
         </form>
+        <div id='authenticationResponse'><div>
       </div>";
-     }
+    }
+    public function authenticate(){
+        if(isset($_POST['login'])){
+          $email = $_POST['email-address'];
+          $password = $_POST['password'];
+          $authenticationResult =  Queries::authenticateUser($email,$password);
+          echo $authenticationResult;
+          if($authenticationResult!= 1){
+           echo '<script type="text/JavaScript">  
+             alert(\'Incorrect credentials provided. Please try again\');
+           </script>';
+           }
+           else{
+               session_start();
+             if (!isset($_SESSION['loggedIn']))
+             {
+              $_SESSION['loggedIn'] = 'true';
+             } 
+             header('Location: ../newPost/'.$this->locale.'.php');
+           }
+          }
+       }
+     
  }
+
+
+ 
 ?>
+
+
+
 
