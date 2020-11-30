@@ -5,6 +5,6 @@ $dbUser ='root';
 $dbPass ='#Unsouled2018';
 $dbName ='gamingforum';
 
-$db = mysqli_connect( $host, $dbUser, $dbPass, $dbName ) ;
+$db = new MySQL( $host, $dbUser, $dbPass, $dbName ) ;
 $db->selectDatabase();
 ?>

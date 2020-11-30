@@ -1,13 +1,42 @@
 <?php
-  require '..\database\connectDB.php';
-?>
-<?php
-class DBQueries{
+include_once 'MYSQLDB.php';
 
-  public static function registerUser($email,$password,$fName,$lName,$age, $gender, $profile_pic)
+class Queries{
+ 
+
+  public static function registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic)
   {
-    $sql = "insert into User (email,password,first_name,last_name,age) values('$email','$password', '$fName', '$lName', $age, '$gender', $profile_pic);";
-    return $db->query($sql);
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $sql = 'use gamingforum';
+    $db->query($sql);
+    $sql = "insert into user_details (first_name,last_name,email, profile_pic, age, gender) values ('$first_name', '$last_name', '$email', '$profile_pic', $age, '$gender');";
+    $db->query($sql);
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "select * from user_details where email = '".$email."' LIMIT 1;";
+    $result = $db->query($sql);
+    if($result->num_rows > 0){
+     while($row = $result->fetch_assoc())
+     {
+       $userID = $row['userID'];
+       $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+       $sql = "insert into user_credentials (userID,current_password) values ('$userID','$passwordHash');";
+       $db->query($sql);
+     }
+    }
+    // if($result->num_rows > 0)
+    // {
+    //   while ($row = $result->fetch_assoc()) {
+    //   $userID = $row['userID'];
+    //   echo 'User ID: '.$userID;
+    // // $createUserCredential = "insert into user_credentials (userID,current_password) values ('$userID','$password');";
+    // }
+    // }
+   
   }
   public static function GetPasswordHash($email)
   {

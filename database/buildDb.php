@@ -1,6 +1,6 @@
 <?php
-require_once "connectDB.php";
- 	$file=fopen('../data/init.sql','r');
+require_once "dbConnect.php";
+ 	$file=fopen('../data/initializeTables.sql','r');
  	$sql='';
  	while(!feof($file)){
  		$data=trim(fgets($file));

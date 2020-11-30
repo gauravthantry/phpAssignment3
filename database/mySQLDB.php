@@ -25,7 +25,7 @@ class MySQL
 
 	function connectToServer()
 	{
-		$this->dbConn = mysqli_connect( $this->host, $this->dbUser, $this->dbPass );
+		$this->dbConn = new mysqli( $this->host, $this->dbUser, $this->dbPass );
 		if ( !$this->dbConn )
 		{
 		   trigger_error('could not connect to server' );
@@ -33,7 +33,7 @@ class MySQL
 		}
 		else
 		{
-			//echo "<br> connected to server <br>";
+			// echo "<br> connected to server <br>";
 		}
 
 	}
@@ -120,7 +120,7 @@ class MySQL
 
 	function query( $sql )
 	{
-		mysqli_query( $this->dbConn, "set character_set_results='utf8'");
+		// mysqli_query( $this->dbConn, "set character_set_results='utf8'");
 		 if (!$queryResource = mysqli_query($this->dbConn, $sql ))
 		 {
 			trigger_error ( 'Query Failed: <br>' . mysqli_error($this->dbConn ) . '<br> SQL: ' . $sql );

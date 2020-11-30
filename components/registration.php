@@ -1,3 +1,22 @@
+
+<?php
+ include  '../../database/dbConnect.php';
+ require_once "../../database/queries.php";
+ include_once "../../database/dbConnect.php";
+?>
+<?php
+ if(isset($_POST['submit'])&&isset($_FILES['img'])){
+  
+   $email = $_POST['email-address'];
+   $first_name = $_POST['first-name'];
+   $last_name = $_POST['last-name'];
+   $age = $_POST['age'];
+   $gender = $_POST['gender'];
+   $profile_pic = $_FILES['img']['name'];
+      $password = $_POST['password'];
+Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
+ }
+?>
 <?php
  class Registration {
      private $ini_array = array();
@@ -16,7 +35,7 @@
      }
      public function formRegistration(){
         echo  "<div class='body-content'>
-        <form action='../../actions/register.php' class='ui form' method='POST'>
+        <form class='ui form'  method='POST' enctype='multipart/form-data'>
               <div class='ui grid'>
                 <div class='three wide column preview-holder'>
                   <img class='sizedimg' id='pic-preview' style='width: 100%;' src=".$this->pic_src.">
@@ -80,7 +99,7 @@
           </div>
           <span id='message'></span>
           <div id='button-div'>
-            <button class='ui primary button' id='submit' type='submit' disabled>".$this->ini_array[$this->locale]['submit']."</button>
+            <button class='ui primary button' id='submit' name='submit' type='submit' disabled>".$this->ini_array[$this->locale]['submit']."</button>
           </div>
         </form>
       </div>";
