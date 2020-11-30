@@ -53,7 +53,8 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
                    $this->ini_array[$this->locale]["New-Post"].
                "</a>
                 <div class='right menu'>
-                   <a class='".$this->login." item'>".
+                   <a class='".$this->login." item'
+                     href='../../pages/loginPage/".$lang.".php'>".
                      $this->ini_array[$this->locale]["Login"].
                   "</a>
                    <a class='".$this->register." item'

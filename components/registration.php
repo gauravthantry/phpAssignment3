@@ -6,15 +6,14 @@
 ?>
 <?php
  if(isset($_POST['submit'])&&isset($_FILES['img'])){
-  
    $email = $_POST['email-address'];
    $first_name = $_POST['first-name'];
    $last_name = $_POST['last-name'];
    $age = $_POST['age'];
    $gender = $_POST['gender'];
    $profile_pic = $_FILES['img']['name'];
-      $password = $_POST['password'];
-Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
+   $password = $_POST['password'];
+   Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
  }
 ?>
 <?php
