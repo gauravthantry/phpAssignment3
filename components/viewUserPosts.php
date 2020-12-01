@@ -80,23 +80,21 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>";
+                    if($userName==='You')
+                    {
+                    echo "
                     <div class='four wide column admin-options'>
                       <div class='admin-option-div'>
-                          <button name='delete' class='ui brown button'>Delete Post</button>
+                          <a href='../../services/deletePost.php?post_id=".$post['post_id']."' <button class='ui brown button'>Delete Post</button>
                       </div>
                     </div>";
+                     }
+                   
             }
             echo "</div>
                 </div>"  ;      
            }  
-         }
-
-    // private function deletePost($post_id){
-    //         $deleteResult=Queries::deletePost($post_id);
-    //         if(gettype($deleteResult)==='object'){
-    //             header('Location: ./'.$globalLocale.'.php');
-    //         }
-    // }    
+         }   
  }
 ?>
