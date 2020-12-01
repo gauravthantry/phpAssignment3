@@ -54,7 +54,6 @@
             foreach($userPosts as $post){
                 echo " <div class='ui grid'>
                         <div class='twelve wide column'>
-                        
                          <div class='post'>
                           <div class='event'>
                           <div class='label'>
@@ -86,7 +85,7 @@
                     echo "
                     <div class='four wide column admin-options'>
                       <div class='admin-option-div'>
-                          <a href='../../services/deletePost.php?post_id=".$post['post_id']."' <button class='ui brown button'>Delete Post</button>
+                          <a href='../../services/deletePost.php?post_id=".$post['post_id']."&lang=".$this->locale."' <button class='ui brown button'>Delete Post</button></a>
                       </div>
                     </div>";
                      }

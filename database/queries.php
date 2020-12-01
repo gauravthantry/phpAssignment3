@@ -149,17 +149,15 @@ class Queries{
     return $db->query($sql);
   }
 
-  public static function DeletePost($post_id)
+  public static function deletePost($post_id)
   {
     $host = 'localhost';
     $dbUser ='root';
     $dbPass ='#Unsouled2018';
     $dbName ='gamingforum';
-    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
-    $db->connectToServer();
-    $db->selectDatabase();
-    $sql = "delete from post where post_id='$post_id' ;";
-    return $db->query($sql);
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "delete from post where post_id=$post_id ;";
+   return $db->query($sql);
   }
 
 }
