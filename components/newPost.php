@@ -49,5 +49,8 @@ if(isset($_POST['new-post'])){
   $post_title = $_POST['post-title'];
   $post_content = $_POST['post-content'];
   $createResult = Queries::createPost($_SESSION['userID'],$globalLocale,$post_title,$post_content);
+  if(gettype($createResult)==='object'){
+      header('Location: ../viewUserPosts/'.$globalLocale.'.php');
+  }
 }
 ?>

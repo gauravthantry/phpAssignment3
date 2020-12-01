@@ -16,13 +16,53 @@
        $this->locale = $locale;
        $globalLocale = $locale;
      }
-
+     
      public function formViewPosts(){
-             echo  "<div class='postsection'>
-             <div class='ui feed'>
-                 <div class='post'>
-                     <div class='event'>";
-             $allPosts = Queries::getAllPosts($_SESSION['userID']);
+        $allPosts = Queries::getAllPosts();
+        if(gettype($allPosts)==='array')
+        {
+            echo  "<div class='postsection'>
+            <div class='ui feed'>
+                ";
+            foreach($allPosts as $post){
+                if($post['gender']==='male'){
+                    $profile_pic_link = '../../images/male.jpg';
+                }
+                else if($post['gender']==='female'){
+                    $profile_pic_link = '../../images/female.png';
+                }
+                
+                echo "
+                         <div class='post'>
+                          <div class='event'>
+                          <div class='label'>
+                            <img src='".$profile_pic_link."' class='label-image'>
+                          </div>
+                          <div class='summary'>
+                            <a href='../viewPostByUser/".$this->locale.".php?userID=".$post['user_id']."&user_name=".$post['user_name']."&gender=".$post['gender']."'>".$post['user_name']."</a> added a post
+                            <div class='date'>
+                             on ".$post['post_create_date']."
+                            </div>
+                          </div>
+                          <br>
+                          <div class='text content'><b>".
+                            $post['post_title'].
+                        " </b></div>
+                          <div class='extra text content'>".
+                            $post['post_content'].
+                        " </div>
+                          <div class='meta'>
+                            <a class='like' href='#'>
+                              <i class='like icon'></i> 5 Likes
+                            </a>
+                          </div>
+                          </div>
+                          </div>
+                    ";
+            }
+            echo "</div>
+                </div>"  ;      
+           }  
          }
         
  }

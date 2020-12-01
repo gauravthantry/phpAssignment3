@@ -11,6 +11,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
     private $home="";     //<--- Assesment 1: 10 - Class properties
     private $newPost="";
     private $viewPosts="";
+    private $myPosts="";
     private $login="";
     private $register="";
     private $ini_array = array();    //<---- Assessment 1: 5 - Array
@@ -31,6 +32,9 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
         }
         else if($activeItem === "viewPosts"){
             $this->viewPost = "active";
+        }
+        else if($activeItem === "myPosts"){
+            $this->myPosts = "active";
         }
         else if($activeItem === "login"){
             $this->login = "active";
@@ -59,8 +63,12 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
                    $this->ini_array[$this->locale]["Home"].
                "</a>
                 <a class='".$this->viewPosts." item' 
-                href='../../pages/viewPosts/".$lang.".php'>".
+                href='../../pages/viewAllPosts/".$lang.".php'>".
                    $this->ini_array[$this->locale]["View-Posts"].
+               "</a>
+               <a class='".$this->myPosts." item' 
+                href='../../pages/viewUserPosts/".$lang.".php'>".
+                   $this->ini_array[$this->locale]["User-Posts"].
                "</a>
                 <a class='".$this->newPost." item' 
                    href='../../pages/newPost/".$lang.".php'>".

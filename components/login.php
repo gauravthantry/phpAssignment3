@@ -44,8 +44,8 @@ session_destroy();
         if(isset($_POST['login'])){
           $email = $_POST['email-address'];
           $password = $_POST['password'];
-          $userID =  Queries::authenticateUser($email,$password);
-          if($userID=== 0){
+          $userData =  Queries::authenticateUser($email,$password);
+          if($userData=== 0){
            echo '<script type="text/JavaScript">  
              alert(\'Incorrect credentials provided. Please try again\');
            </script>';
@@ -55,12 +55,13 @@ session_destroy();
              session_start();
              if (!isset($_SESSION['loggedIn']))
              {
-              echo 'inside set';
               $_SESSION['loggedIn'] = 'true';
-              $_SESSION['userID'] = $userID;
+              $_SESSION['userID'] = $userData['userID'];
+              $_SESSION['user_name'] = $userData['user_name'];
+              $_SESSION['gender'] = $userData['gender'];
               $_SESSION['locale']= $this->locale;
              } 
-             header('Location: ../newPost/'.$this->locale.'.php');
+             header('Location: ../viewUserPosts/'.$this->locale.'.php');
            }
           }
        }

@@ -5,15 +5,15 @@
 ?>
 <?php
   $nav_ini_array = parse_ini_file( '../../ini/navbar.ini',true);  //<---- Assessment 1: 18 (il8n)
-  $registration_ini_array = parse_ini_file('../../ini/login.ini',true);
+  $login_ini_array = parse_ini_file('../../ini/login.ini',true);
   $locale="en";
   $navBar = new NavBar("login",$nav_ini_array,"en");
-  $registration = new Login($registration_ini_array,"en");
+  $login = new Login($login_ini_array,"en");
 ?> <!-- <--- Assessment 1: 1 php tag, escaping html, instruction separation -->
 <!DOCTYPE html>
   <html>
     <?php
-     $head = new Head($registration_ini_array[$locale]['page-title']);
+     $head = new Head($login_ini_array[$locale]['page-title']);
      $head->formHead();
     ?>
 
@@ -21,8 +21,8 @@
       <div class='container'>
         <?php    
         $navBar->formNavBar();
-        $registration->setScriptFiles();
-        $registration->formLogin();
+        $login->setScriptFiles();
+        $login->formLogin();
         ?>
       </div>
   </body>

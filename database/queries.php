@@ -39,22 +39,28 @@ class Queries{
     $sql = 'use gamingforum';
     $db->query($sql);
     
-    $sql = "select userID from user_details where email='".$email."';";
+    $sql = "select userID, first_name, last_name, gender from user_details where email='".$email."';";
     $db = new mysqli($host, $dbUser, $dbPass, $dbName);
     $result = $db->query($sql);
     if($result->num_rows > 0){
       while($row = $result->fetch_assoc())
       {
-        $userID = $row['userID'];
+        $userDetails = array(
+          "userID"=>$row['userID'],
+          "user_name"=>$row['first_name'].' '.$row['last_name'],
+          "gender"=>$row['gender']
+        );
         $db = new mysqli($host, $dbUser, $dbPass, $dbName);
-        $sql = "select current_password from user_credentials where userID ='".$userID."';";
+        $sql = "select current_password from user_credentials where userID ='".$userDetails['userID']."';";
         $result = $db->query($sql);
         if($result->num_rows > 0){
+          
           while($row = $result->fetch_assoc())
           {
           $hashed_password = $row['current_password'];
           if(password_verify ($password , $hashed_password)){
-            return $userID;
+           
+            return $userDetails;
           }
           else {
             return 0;
@@ -74,41 +80,57 @@ class Queries{
   }
 
 
-  public static function getAllPosts($userID)
+  public static function getAllPosts()
   {
-   
     $host = 'localhost';
     $dbUser ='root';
     $dbPass ='#Unsouled2018';
     $dbName ='gamingforum';
     $db = new mysqli($host, $dbUser, $dbPass, $dbName);
-    $sql = "select user_details.profile_pic, CONCAT(user_details.first_name, ' ' , user_details.last_name) as user_name, post.post_title, post.post_content, post.post_create_date from user_details, post where user_details.userID = post.userID and post.userID=".$userID." order by post_create_date desc;";
+    $sql = "select user_details.userID,CONCAT(user_details.first_name, ' ' , user_details.last_name) as user_name, user_details.gender, post.post_id, post.post_title, post.post_content, post.post_create_date from user_details, post where user_details.userID = post.userID order by post_create_date desc;";
     $result = $db->query($sql);
     if($result->num_rows > 0){
       $posts = array();
       while($row = $result->fetch_assoc())
       {
         array_push($posts, array(
+          'post_id'=>$row['post_id'],
+          'user_id'=>$row['userID'],
+          'user_name'=>$row['user_name'],
+          'gender'=>$row['gender'],
+          'post_title'=>$row['post_title'],
+          'post_content'=>$row['post_content'],
+          'post_create_date'=>$row['post_create_date']
+        ));
+      }
+      return $posts;
+    }
+  }
+
+  public static function getUserPosts($userID)
+  {
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "select user_details.profile_pic, CONCAT(user_details.first_name, ' ' , user_details.last_name) as user_name, post.post_id, post.post_title, post.post_content, post.post_create_date from user_details, post where user_details.userID = post.userID and post.userID=".$userID." order by post_create_date desc;";
+    $result = $db->query($sql);
+    if($result->num_rows > 0){
+      $posts = array();
+      while($row = $result->fetch_assoc())
+      {
+        array_push($posts, array(
+          'post_id'=>$row['post_id'],
           'user_name'=>$row['user_name'],
           'post_title'=>$row['post_title'],
           'post_content'=>$row['post_content'],
           'post_create_date'=>$row['post_create_date']
         ));
       }
-
-      foreach($posts as $post){
-        echo $post['post_content']."<br>";
-      }
       return $posts;
   
     }
-  }
-
-  public static function GetPostsByID($id)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select * from Post where id = '$id';";
-    return $db->query($sql);
   }
 
 
@@ -127,10 +149,16 @@ class Queries{
     return $db->query($sql);
   }
 
-  public static function DeletePost($postID)
+  public static function DeletePost($post_id)
   {
-    require '..\database\connectDB.php';
-    $sql = "delete from Post where id='$postID' ;";
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $db->connectToServer();
+    $db->selectDatabase();
+    $sql = "delete from post where post_id='$post_id' ;";
     return $db->query($sql);
   }
 
