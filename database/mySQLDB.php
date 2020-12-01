@@ -22,7 +22,6 @@ class MySQL
 		$this->connectToServer();
 	}
 
-
 	function connectToServer()
 	{
 		$this->dbConn = new mysqli( $this->host, $this->dbUser, $this->dbPass );

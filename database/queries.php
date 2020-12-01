@@ -14,7 +14,7 @@ class Queries{
     $db = new MySQL($host, $dbUser, $dbPass, $dbName);
     $sql = 'use gamingforum';
     $db->query($sql);
-    $sql = "insert into user_details (first_name,last_name,email, profile_pic, age, gender) values ('$first_name', '$last_name', '$email', '$profile_pic', $age, '$gender');";
+    $sql = "insert into user_details (first_name,last_name,email, profile_pic, age, gender) values ('$first_name', '$last_name', '$email', '$profile_pic',  $age, '$gender');";
     $db->query($sql);
     $db = new mysqli($host, $dbUser, $dbPass, $dbName);
     $sql = "select * from user_details where email = '".$email."' LIMIT 1;";
@@ -74,18 +74,34 @@ class Queries{
   }
 
 
-  public static function getAllPosts()
+  public static function getAllPosts($userID)
   {
-    require '..\database\connectDB.php';
+   
     $host = 'localhost';
     $dbUser ='root';
     $dbPass ='#Unsouled2018';
     $dbName ='gamingforum';
-    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
-    $db->connectToServer();
-    $db->selectDatabase();
-    $sql = "select * from post order by post_create_date desc;";
-    return $db->query($sql);
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "select user_details.profile_pic, CONCAT(user_details.first_name, ' ' , user_details.last_name) as user_name, post.post_title, post.post_content, post.post_create_date from user_details, post where user_details.userID = post.userID and post.userID=".$userID." order by post_create_date desc;";
+    $result = $db->query($sql);
+    if($result->num_rows > 0){
+      $posts = array();
+      while($row = $result->fetch_assoc())
+      {
+        array_push($posts, array(
+          'user_name'=>$row['user_name'],
+          'post_title'=>$row['post_title'],
+          'post_content'=>$row['post_content'],
+          'post_create_date'=>$row['post_create_date']
+        ));
+      }
+
+      foreach($posts as $post){
+        echo $post['post_content']."<br>";
+      }
+      return $posts;
+  
+    }
   }
 
   public static function GetPostsByID($id)
@@ -107,7 +123,7 @@ class Queries{
     $db->connectToServer();
     $db->selectDatabase();
     $date = date("Y/m/d");
-    $sql = "insert into post (userID, lang, post_title, post_content) values ('$userID','$locale','$post_title', '$post_content') ;";
+    $sql = "insert into post (userID, lang, post_title, post_content) values ($userID,'$locale','$post_title', '$post_content') ;";
     return $db->query($sql);
   }
 

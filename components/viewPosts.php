@@ -22,17 +22,8 @@
              <div class='ui feed'>
                  <div class='post'>
                      <div class='event'>";
-            
-     
+             $allPosts = Queries::getAllPosts($_SESSION['userID']);
          }
         
  }
-?>
-
-<?php 
-if(isset($_POST['new-post'])){
-  $post_title = $_POST['post-title'];
-  $post_content = $_POST['post-content'];
-  $createResult = Queries::createPost($_SESSION['userID'],$globalLocale,$post_title,$post_content);
-}
 ?>

@@ -11,7 +11,7 @@
    $last_name = $_POST['last-name'];
    $age = $_POST['age'];
    $gender = $_POST['gender'];
-   $profile_pic = $_FILES['img']['name'];
+   $profile_pic = addslashes(file_get_contents($_FILES['img']['tmp_name']));
    $password = $_POST['password'];
    Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
  }
