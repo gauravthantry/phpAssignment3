@@ -1,7 +1,4 @@
 <?php
-/*
-   MySQL Database Connection Class
-*/
 
 class MySQL
 {

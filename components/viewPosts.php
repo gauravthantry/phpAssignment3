@@ -24,7 +24,7 @@
             echo  "<div class='postsection'>
             <div class='ui feed'>
                 ";
-            foreach($allPosts as $post){
+            foreach($allPosts as $post){     //Assignment 1: 5 - Foreach
                 if($post['gender']==='male'){
                     $profile_pic_link = '../../images/male.jpg';
                 }
@@ -39,7 +39,14 @@
                             <img src='".$profile_pic_link."' class='label-image'>
                           </div>
                           <div class='summary'>
-                            <a href='../viewPostByUser/".$this->locale.".php?userID=".$post['user_id']."&user_name=".$post['user_name']."&gender=".$post['gender']."'>".$post['user_name']."</a> added a post
+                            <a href='../viewPostByUser/".$this->locale.".php?userID=".$post['user_id']."&user_name=".$post['user_name']."&gender=".$post['gender']."'>";
+                            if($_SESSION['user_name']===$post['user_name']){
+                              echo "You";
+                            }
+                            else {
+                              echo $post['user_name'];
+                            }
+                            echo "</a> added a post
                             <div class='date'>
                              on ".$post['post_create_date']."
                             </div>

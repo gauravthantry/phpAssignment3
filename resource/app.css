@@ -94,3 +94,13 @@
 .imgRemove{
     margin-top: 1%;
 }
+
+.sticky{
+    position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.user-option-button{
+    width: 100;
+}

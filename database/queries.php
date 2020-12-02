@@ -4,26 +4,26 @@ include_once 'MYSQLDB.php';
 class Queries{
  
 
-  public static function registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic)
+  public static function registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic)    //Assignment 1: 11 - Static, 9 - Function arguments
   {
     $host = 'localhost';
     $dbUser ='root';
     $dbPass ='#Unsouled2018';
     $dbName ='gamingforum';
     
-    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);  //Assignment 1: 20 - db
     $sql = 'use gamingforum';
     $db->query($sql);
     $sql = "insert into user_details (first_name,last_name,email, profile_pic, age, gender) values ('$first_name', '$last_name', '$email', '$profile_pic',  $age, '$gender');";
     $db->query($sql);
-    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);  //Assignment 1: 20 - db
     $sql = "select * from user_details where email = '".$email."' LIMIT 1;";
     $result = $db->query($sql);
     if($result->num_rows > 0){
-     while($row = $result->fetch_assoc())
+     while($row = $result->fetch_assoc())   //Assignment 1: 7 - Iteration (While)
      {
        $userID = $row['userID'];
-       $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+       $passwordHash = password_hash($password, PASSWORD_DEFAULT);   //Assignment 1: 16 - Password_Hash
        $sql = "insert into user_credentials (userID,current_password) values ('$userID','$passwordHash');";
        $db->query($sql);
      }
@@ -71,14 +71,6 @@ class Queries{
      }
     }
   }
-
-  public static function GetUser($id)
-  {
-    require '..\database\connectDB.php';
-    $sql = "select * from User where UserID = '$id';";
-    return $db->query($sql);
-  }
-
 
   public static function getAllPosts()
   {
@@ -149,13 +141,49 @@ class Queries{
     return $db->query($sql);
   }
 
-  public static function deletePost($post_id)
+  public static function fetchPostContents($post_id)
   {
     $host = 'localhost';
     $dbUser ='root';
     $dbPass ='#Unsouled2018';
     $dbName ='gamingforum';
     $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "select post_title, post_content from post where post_id=$post_id;";
+    $result = $db->query($sql);
+    if($result->num_rows > 0){
+      
+      while($row = $result->fetch_assoc())
+      {
+        $post_content = array(
+          'post_title'=>$row['post_title'],
+          'post_content'=>$row['post_content']
+        );
+        return $post_content;
+      }
+    }
+  }
+
+  public static function editPost($post_id, $post_title, $post_content)
+  {
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new mysqli($host, $dbUser, $dbPass, $dbName);
+    $sql = "update post set post_title='$post_title', post_content='$post_content' where post_id=$post_id;";
+    $result = $db->query($sql);
+    return $result;
+  }
+
+  public static function deletePost($post_id)
+  {
+    $host = 'localhost';
+    $dbUser ='root';
+    $dbPass ='#Unsouled2018';
+    $dbName ='gamingforum';
+    $db = new MySQL($host, $dbUser, $dbPass, $dbName);
+    $db->connectToServer();
+    $db->selectDatabase();
     $sql = "delete from post where post_id=$post_id ;";
    return $db->query($sql);
   }

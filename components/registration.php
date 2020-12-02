@@ -1,11 +1,14 @@
 
 <?php
- include  '../../database/dbConnect.php';
+ include  '../../database/dbConnect.php';    //Assignment 1: 3 - Include
  require_once "../../database/queries.php";
  include_once "../../database/dbConnect.php";
 ?>
 <?php
+
+try{
  if(isset($_POST['submit'])&&isset($_FILES['img'])){
+   $pattern = '/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/';
    $email = $_POST['email-address'];
    $first_name = $_POST['first-name'];
    $last_name = $_POST['last-name'];
@@ -13,8 +16,20 @@
    $gender = $_POST['gender'];
    $profile_pic = addslashes(file_get_contents($_FILES['img']['tmp_name']));
    $password = $_POST['password'];
-   Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
+   $locale = $_POST['locale'];
+   if(preg_match($pattern,$password)){
+      $registerUserResult = Queries::registerUser($email,$password,$first_name,$last_name,$age, $gender, $profile_pic);
+      header('Location: ../loginPage/'.$locale.'.php');
+   }
+   else{
+      echo "<script>
+        alert('The password must contain atleast one special character, a number, a Capital and a lower case letter and must of atleast 8 characters in length');</script>";
+   }
  }
+}
+catch(Exception $e){
+   echo "<script>alert($e)</script>";
+}
 ?>
 <?php
  class Registration {
@@ -34,7 +49,8 @@
      }
      public function formRegistration(){
         echo  "<div class='body-content'>
-        <form class='ui form'   method='POST' enctype='multipart/form-data'>
+        <form class='ui form' method='POST' enctype='multipart/form-data'>
+              <textarea name='locale' hidden>".$this->locale."</textarea>
               <div class='ui grid'>
                 <div class='three wide column preview-holder'>
                   <img class='sizedimg' id='pic-preview' style='width: 100%;' src=".$this->pic_src.">
@@ -96,7 +112,8 @@
             </div>
            </div>
           </div>
-          <span id='message'></span>
+         <div> <span id='message'></span></div>
+         <div><span id='pattern_match'></span></div>
           <div id='button-div'>
             <button class='ui primary button' id='submit' name='submit' type='submit' disabled>".$this->ini_array[$this->locale]['submit']."</button>
           </div>

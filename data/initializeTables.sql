@@ -5,13 +5,13 @@ create table if not exists user_details(
   userID int primary key auto_increment,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
-  email VARCHAR(30) NOT NULL,
+  email VARCHAR(30) NOT NULL UNIQUE,
   profile_pic LONGBLOB NOT NULL,
   age INT NOT NULL,
   gender VARCHAR(10)
 );
 
-create table if not exists Post(
+create table if not exists post(
 	post_id INT NOT NULL AUTO_INCREMENT,
   userID INT,
   lang VARCHAR (2),

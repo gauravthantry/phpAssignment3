@@ -4,7 +4,6 @@ function myImgRemoveFunctionOne() {
   }
 
   function showPreviewOne(event){
-    console.log(`Enetered showPreviewOne`);
     if(event.target.files.length > 0){
       let src = URL.createObjectURL(event.target.files[0]);
       console.log(`[URL]:${src}`)
@@ -33,5 +32,8 @@ function myImgRemoveFunctionOne() {
         }
     },200);
   }
+
+
+
 
   

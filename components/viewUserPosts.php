@@ -52,8 +52,11 @@
             <div class='ui feed'>
                 ";
             foreach($userPosts as $post){
-                echo " <div class='ui grid'>
-                        <div class='twelve wide column'>
+              if($userName==='You'){
+                echo "<div class='ui grid'>
+                       <div class='twelve wide column'>";
+              }
+                echo " 
                          <div class='post'>
                           <div class='event'>
                           <div class='label'>
@@ -78,17 +81,27 @@
                             </a>
                           </div>
                         </div>
-                      </div>
-                    </div>";
+                        </div>";
+                  if($userName==='You'){
+                    echo "</div>";
+                  }
+                      
                     if($userName==='You')
                     {
                     echo "
                     <div class='four wide column admin-options'>
                       <div class='admin-option-div'>
-                          <a href='../../services/deletePost.php?post_id=".$post['post_id']."&lang=".$this->locale."' <button class='ui brown button'>Delete Post</button></a>
+                          <a class='ui red button' style='width: 100%' href='../../services/deletePost.php?post_id=".$post['post_id']."&lang=".$this->locale."'>Delete Post</a>
+                      </div>
+                      <div class='admin-option-div'>
+                          <a class='ui brown button' style='width: 100%' href='../editPost/".$this->locale.".php?post_id=".$post['post_id']."'>Edit Post</a>
                       </div>
                     </div>";
                      }
+
+                     if($userName==='You'){
+                      echo "</div>";
+                    }
                    
             }
             echo "</div>

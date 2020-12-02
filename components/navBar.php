@@ -39,7 +39,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
         else if($activeItem === "login"){
             $this->login = "active";
         }
-        else {                         //<---- Assessment 1: 6 - else condition
+        else if($activeItem === "register"){                         //<---- Assessment 1: 6 - else condition
             $this->register = "active";
         }
         $this->ini_array = $ini_array;
@@ -57,7 +57,7 @@ class NavBar {    //<--- Assessment 1: 10 - Classes 4 - Coding convention (class
         if($this->locale === 'hi'){
            $lang = 'hi';
         }
-        echo "<div class='ui inverted menu'>
+        echo "<div class='ui inverted menu sticky'>
                 <a class='".$this->home." item'
                    href='../../pages/landingPage/".$lang.".php'>".
                    $this->ini_array[$this->locale]["Home"].

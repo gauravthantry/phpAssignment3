@@ -44,25 +44,32 @@ session_destroy();
         if(isset($_POST['login'])){
           $email = $_POST['email-address'];
           $password = $_POST['password'];
-          $userData =  Queries::authenticateUser($email,$password);
-          if($userData=== 0){
-           echo '<script type="text/JavaScript">  
-             alert(\'Incorrect credentials provided. Please try again\');
-           </script>';
-           }
-           else{
-             echo 'inside else';
-             session_start();
-             if (!isset($_SESSION['loggedIn']))
-             {
-              $_SESSION['loggedIn'] = 'true';
-              $_SESSION['userID'] = $userData['userID'];
-              $_SESSION['user_name'] = $userData['user_name'];
-              $_SESSION['gender'] = $userData['gender'];
-              $_SESSION['locale']= $this->locale;
-             } 
-             header('Location: ../viewUserPosts/'.$this->locale.'.php');
-           }
+          try {   //Assignment 1: 12 - Error handling
+            $userData =  Queries::authenticateUser($email,$password);
+            if($userData=== 0){
+             echo '<script type="text/JavaScript">  
+               alert(\'Incorrect credentials provided. Please try again\');
+             </script>';
+             }
+             else{
+               echo 'inside else';
+               session_start();    //Assignment 1: 14 - Sessions
+               if (!isset($_SESSION['loggedIn']))
+               {
+                $_SESSION['loggedIn'] = 'true';
+                $_SESSION['userID'] = $userData['userID'];
+                $_SESSION['user_name'] = $userData['user_name'];
+                $_SESSION['gender'] = $userData['gender'];
+                $_SESSION['locale']= $this->locale;
+               } 
+               header('Location: ../landingPage/'.$this->locale.'.php');  //Assignment 1: 15 - REST (Header)
+             }
+             
+          }
+          catch (Exception $e){  //Assignment 1: 12 - Error handling
+            echo "<script>alert($e)</script>";
+          }
+          
           }
        }
      
